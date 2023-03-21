@@ -11,10 +11,10 @@
         android:gravity="center" />
 
     <item
-        android:width="200dp"
+        android:width="230dp"
         android:bottom="150dp"
         android:height="100dp"
-        android:drawable="@drawable/tafak_text"
+        android:drawable="@drawable/intellekt"
         android:gravity="bottom|center" />
 
 </layer-list>

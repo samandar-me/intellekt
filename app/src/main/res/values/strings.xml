@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">Tafakkur</string>
+    <string name="app_name">Intellekt</string>
     <string name="intro">Kirish</string>
     <string name="acc_there">Akkauntingiz bormi?</string>
     <string name="register">Ro\'yxatdan o\'tish</string>
+    <string name="forgot_pass">Parolni unutdingizmi?</string>
+    <string name="already_have_acc">Akkauntingiz bormi?</string>
+    <string name="acc_there_no">Akkauntingiz yo\'qmi?</string>
 </resources>

@@ -1,0 +1,91 @@
+package com.sdk.tafakkur.ui.auth.register
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.sdk.tafakkur.R
+import com.sdk.tafakkur.ui.components.*
+import com.sdk.tafakkur.ui.theme.Blue
+
+@Composable
+fun RegisterScreen(
+    navController: NavController,
+    viewModel: RegisterViewModel = hiltViewModel(),
+) {
+    val state by viewModel.state.collectAsState()
+    AnimatedMessageBar(
+        isVisible = state.successBarVisible
+    ) {
+        SuccessMessageBar(text = state.message)
+    }
+    AnimatedMessageBar(
+        isVisible = state.errorBarVisible
+    ) {
+        ErrorMessageBar(text = state.message)
+    }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(25.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceEvenly
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.register_acc),
+            contentDescription = "register",
+            modifier = Modifier
+                .size(150.dp)
+        )
+        ImagePicker(
+            onSuccess = viewModel::onImageChange
+        )
+        AppTextField(
+            text = state.fullName,
+            hint = "Ism",
+            onValueChange = viewModel::onFullNameChange
+        )
+        AppTextField(
+            text = state.email,
+            hint = "Email",
+            onValueChange = viewModel::onUserNameChange
+        )
+        PasswordTextField(
+            text = state.password,
+            hint = "Parol",
+            onValueChange = viewModel::onPasswordChange
+        )
+        LoadingButton(
+            isLoading = state.isLoading,
+            textId = R.string.register,
+            onClick = viewModel::register
+        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(text = stringResource(id = R.string.already_have_acc), fontSize = 13.sp)
+            Spacer(modifier = Modifier.width(10.dp))
+            TextButton(onClick = {
+                navController.popBackStack()
+            }) {
+                Text(text = stringResource(id = R.string.intro), fontSize = 13.sp, color = Blue)
+            }
+        }
+    }
+}

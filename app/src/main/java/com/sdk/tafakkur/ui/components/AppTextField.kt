@@ -16,7 +16,7 @@ fun AppTextField(
     text: String,
     hint: String,
     onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     OutlinedTextField(
         value = text,
@@ -31,6 +31,6 @@ fun AppTextField(
         maxLines = 1,
         singleLine = true,
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(18.dp)
+        shape = RoundedCornerShape(15.dp)
     )
 }

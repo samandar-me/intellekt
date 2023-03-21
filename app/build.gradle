@@ -2,6 +2,9 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -38,7 +41,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.2.0'
+        kotlinCompilerExtensionVersion '1.1.1'
     }
     packagingOptions {
         resources {
@@ -48,20 +51,43 @@ android {
 }
 
 dependencies {
-
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.3.1'
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.compose.material3:material3:1.0.0-alpha11'
-    implementation 'com.google.firebase:firebase-auth-ktx:21.1.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
-
+    implementation Dependencies.KotlinCore
+    implementation Dependencies.AndroidLifecycle
+    implementation Dependencies.AndroidComp
+    implementation Dependencies.CompUi
+    implementation Dependencies.CompToolPrev
+    implementation Dependencies.M3
     implementation Dependencies.ComposeNavigation
+    implementation Dependencies.FireAuth
+    implementation Dependencies.FireStore
+    implementation Dependencies.FireStorage
+    implementation project(path: ':domain')
+    implementation project(path: ':data')
+    testImplementation Dependencies.JUnit
+    androidTestImplementation Dependencies.AndroidJUnit
+    androidTestImplementation Dependencies.Espresso
+    androidTestImplementation Dependencies.AndroidXUIJunit
+    debugImplementation Dependencies.UiTooling
+    debugImplementation Dependencies.TestManifest
+
+    //Dagger - Hilt
+    implementation Dependencies.Hilt
+    kapt Dependencies.KaptHilt
+    implementation Dependencies.HiltVM
+    kapt Dependencies.CompHilt
+    implementation Dependencies.HiltNavigation
+
+    // Room
+    implementation Dependencies.RoomRun
+    implementation Dependencies.RoomKtx
+    annotationProcessor Dependencies.RoomAn
+    kapt Dependencies.RoomComp
+
+    // Coroutines
+    implementation Dependencies.Coroutines
+    implementation Dependencies.AndroidCoroutine
+
+    // Coroutine Lifecycle Scopes
+    implementation Dependencies.LifecycleScope
+    implementation Dependencies.RuntimeScope
 }
