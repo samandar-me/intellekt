@@ -1,16 +1,20 @@
 package com.sdk.tafakkur.di
 
+import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.sdk.data.manager.DataStoreManager
 import com.sdk.data.repository.AuthRepositoryImpl
 import com.sdk.domain.repository.AuthRepository
+import com.sdk.domain.use_case.auth.ChangeUseAuthStateUseCase
 import com.sdk.domain.use_case.auth.LoginUseCase
 import com.sdk.domain.use_case.auth.RegisterUseCase
 import com.sdk.domain.use_case.base.UseCases
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -37,16 +41,22 @@ object AppModule {
         auth: FirebaseAuth,
         storage: FirebaseStorage,
         fireStore: FirebaseFirestore,
+        manager: DataStoreManager
     ): AuthRepository {
         return AuthRepositoryImpl(
-            auth, storage, fireStore
+            auth, storage, fireStore, manager
         )
+    }
+    @[Provides Singleton]
+    fun provideDataStoreManager(@ApplicationContext context: Context): DataStoreManager {
+        return DataStoreManager(context)
     }
     @[Provides Singleton]
     fun provideUseCases(authRepository: AuthRepository): UseCases {
         return UseCases(
             loginUseCase = LoginUseCase(authRepository),
-            registerUseCase = RegisterUseCase(authRepository)
+            registerUseCase = RegisterUseCase(authRepository),
+            changeUseAuthStateUseCase = ChangeUseAuthStateUseCase(authRepository)
         )
     }
 }

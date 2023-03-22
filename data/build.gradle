@@ -43,4 +43,6 @@ dependencies {
     implementation Dependencies.FireAuth
     implementation Dependencies.FireStore
     implementation Dependencies.FireStorage
+
+    implementation Dependencies.DataStore
 }

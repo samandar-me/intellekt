@@ -10,5 +10,5 @@ data class RegisterState(
     val message: String = "",
     val successBarVisible: Boolean = false,
     val errorBarVisible: Boolean = false,
-    val image: Uri = Uri.EMPTY
+    val image: Uri? = null
 )

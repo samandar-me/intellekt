@@ -1,25 +1,32 @@
 package com.sdk.tafakkur.ui.navigation
 
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.sdk.tafakkur.ui.auth.login.LoginScreen
 import com.sdk.tafakkur.ui.auth.register.RegisterScreen
+import com.sdk.tafakkur.ui.main.MainScreen
 import com.sdk.tafakkur.util.Graph
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
-fun RootNavigation(navHostController: NavHostController) {
+fun RootNavigation(navHostController: NavHostController, isAuthed: Boolean) {
+//    var graph by remember {
+//        mutableStateOf(Graph.MAIN)
+//    }
+//    if (!isAuthed) {
+//        graph = Graph.AUTH
+//    }
     NavHost(
         navController = navHostController,
         route = Graph.ROOT,
-        startDestination = "login"
+        startDestination = Graph.MAIN
     ) {
-        composable("login") {
-            LoginScreen(navController = navHostController)
+        composable(route = Graph.MAIN) {
+            MainScreen()
         }
-        composable("register") {
-            RegisterScreen(navController = navHostController)
-        }
+        //authNavGraph(navController = navHostController)
     }
 }

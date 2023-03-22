@@ -19,6 +19,7 @@ import androidx.navigation.NavController
 import com.sdk.tafakkur.R
 import com.sdk.tafakkur.ui.components.*
 import com.sdk.tafakkur.ui.theme.Blue
+import com.sdk.tafakkur.util.Graph
 import kotlinx.coroutines.delay
 
 @Composable
@@ -27,10 +28,14 @@ fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
-    LaunchedEffect(key1 = true) {
+    LaunchedEffect(key1 = state.successBarVisible) {
         if (state.successBarVisible) {
             delay(1000L)
-            navController.navigate("register")
+            navController.navigate(Graph.MAIN) {
+                popUpTo(Graph.AUTH) {
+                    inclusive = true
+                }
+            }
         }
     }
     AnimatedMessageBar(

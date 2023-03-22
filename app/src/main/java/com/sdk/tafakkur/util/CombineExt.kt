@@ -2,6 +2,9 @@ package com.sdk.tafakkur.util
 
 import kotlinx.coroutines.flow.Flow
 
+
+const val MSG_BAR_DELAY_TIME = 3000L
+
 inline fun <T1, T2, T3, T4, T5, T6, T7, T8, R> customCombine(
     flow: Flow<T1>,
     flow2: Flow<T2>,

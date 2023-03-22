@@ -37,6 +37,7 @@ fun TafakkurTheme(
         SideEffect {
             (view.context as Activity).window.statusBarColor = colorScheme.primary.toArgb()
             (view.context as Activity).window.navigationBarColor = colorScheme.primary.toArgb()
+           // (view.context as Activity).window
         }
     }
 

@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -21,13 +22,25 @@ import androidx.navigation.NavController
 import com.sdk.tafakkur.R
 import com.sdk.tafakkur.ui.components.*
 import com.sdk.tafakkur.ui.theme.Blue
+import com.sdk.tafakkur.util.Graph
+import kotlinx.coroutines.delay
 
 @Composable
 fun RegisterScreen(
     navController: NavController,
-    viewModel: RegisterViewModel = hiltViewModel(),
+    viewModel: RegisterViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
+    LaunchedEffect(key1 = state.successBarVisible) {
+        if (state.successBarVisible) {
+            delay(1000L)
+            navController.navigate(Graph.MAIN) {
+                popUpTo(Graph.AUTH) {
+                    inclusive = true
+                }
+            }
+        }
+    }
     AnimatedMessageBar(
         isVisible = state.successBarVisible
     ) {
@@ -49,7 +62,8 @@ fun RegisterScreen(
             painter = painterResource(id = R.drawable.register_acc),
             contentDescription = "register",
             modifier = Modifier
-                .size(150.dp)
+                .fillMaxWidth()
+                .height(110.dp)
         )
         ImagePicker(
             onSuccess = viewModel::onImageChange

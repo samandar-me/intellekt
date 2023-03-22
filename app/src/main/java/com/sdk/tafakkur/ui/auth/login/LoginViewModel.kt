@@ -1,10 +1,12 @@
 package com.sdk.tafakkur.ui.auth.login
 
+import android.util.Patterns
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sdk.domain.model.Login
 import com.sdk.domain.use_case.base.UseCases
+import com.sdk.tafakkur.util.MSG_BAR_DELAY_TIME
 import com.sdk.tafakkur.util.customCombine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -52,6 +54,20 @@ class LoginViewModel @Inject constructor(
 
     fun login() {
         viewModelScope.launch {
+            if (!Patterns.EMAIL_ADDRESS.matcher(email.value).matches()) {
+                savedStateHandle["message"] = "Email mos emas!"
+                savedStateHandle["errorBar"] = true
+                delay(MSG_BAR_DELAY_TIME)
+                savedStateHandle["errorBar"] = false
+                return@launch
+            }
+            if (password.value.length < 6) {
+                savedStateHandle["message"] = "Parol uzunligi 6 dan ko'p bo'lishi kerak!"
+                savedStateHandle["errorBar"] = true
+                delay(MSG_BAR_DELAY_TIME)
+                savedStateHandle["errorBar"] = false
+                return@launch
+            }
             useCases.loginUseCase(
                 Login(
                     email.value,
@@ -63,18 +79,14 @@ class LoginViewModel @Inject constructor(
                 savedStateHandle["isLoading"] = false
                 savedStateHandle["message"] = "Bunday foydalanuvchi topilmadi!"
                 savedStateHandle["errorBar"] = true
-                delay(3000L)
+                delay(MSG_BAR_DELAY_TIME)
                 savedStateHandle["errorBar"] = false
             }.collect {
                 savedStateHandle["isLoading"] = false
                 if (it) {
+                    useCases.changeUseAuthStateUseCase(true)
                     savedStateHandle["successBar"] = true
                     savedStateHandle["message"] = "Muvaffaqqiyatli kirildi"
-                } else {
-                    savedStateHandle["message"] = "Xatolik yuz berdi."
-                    savedStateHandle["errorBar"] = true
-                    delay(3000L)
-                    savedStateHandle["errorBar"] = false
                 }
             }
         }
