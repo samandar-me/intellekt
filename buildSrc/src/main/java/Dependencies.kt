@@ -16,6 +16,9 @@ object Dependencies {
     const val FireCompile = "com.google.gms:google-services:${Versions.fireCompile}"
     const val DaggerHilt = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}"
 
+    const val Coil = "io.coil-kt:coil:${Versions.coil}"
+    const val AccCoil = "com.google.accompanist:accompanist-coil:${Versions.accCoil}"
+
     const val Hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
     const val KaptHilt = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
     const val HiltVM = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hiltVm}"
@@ -60,4 +63,7 @@ object Versions {
     const val hiltVm = "1.0.0-alpha03"
     const val compHilt = "1.0.0"
     const val room = "2.4.3"
+
+    const val coil = "1.4.0"
+    const val accCoil = "0.10.0"
 }

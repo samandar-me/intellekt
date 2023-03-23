@@ -13,12 +13,12 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun RootNavigation(navHostController: NavHostController, isAuthed: Boolean) {
-//    var graph by remember {
-//        mutableStateOf(Graph.MAIN)
-//    }
-//    if (!isAuthed) {
-//        graph = Graph.AUTH
-//    }
+    var graph by remember {
+        mutableStateOf(Graph.MAIN)
+    }
+    if (!isAuthed) {
+        graph = Graph.AUTH
+    }
     NavHost(
         navController = navHostController,
         route = Graph.ROOT,
@@ -27,6 +27,6 @@ fun RootNavigation(navHostController: NavHostController, isAuthed: Boolean) {
         composable(route = Graph.MAIN) {
             MainScreen()
         }
-        //authNavGraph(navController = navHostController)
+        authNavGraph(navController = navHostController)
     }
 }

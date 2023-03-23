@@ -6,4 +6,5 @@
     <string name="forgot_pass">Parolni unutdingizmi?</string>
     <string name="already_have_acc">Akkauntingiz bormi?</string>
     <string name="acc_there_no">Akkauntingiz yo\'qmi?</string>
+    <string name="hello">Salom</string>
 </resources>
