@@ -22,7 +22,7 @@ fun RootNavigation(navHostController: NavHostController, isAuthed: Boolean) {
     NavHost(
         navController = navHostController,
         route = Graph.ROOT,
-        startDestination = Graph.MAIN
+        startDestination = graph
     ) {
         composable(route = Graph.MAIN) {
             MainScreen()

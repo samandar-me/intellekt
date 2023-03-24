@@ -7,22 +7,19 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
-import androidx.core.view.ViewCompat
 
 private val DarkColorScheme = darkColorScheme(
     primary = Dark,
-//    secondary = PurpleGrey80,
-//    tertiary = Pink80
+    secondary = Dark,
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Blue
-//    secondary = PurpleGrey40,
-//    tertiary = Pink40
+    primary = Blue,
+    secondary = DarkBlue,
+    background = Color(0xFFE4EDF8)
 )
 
 @Composable
@@ -34,12 +31,12 @@ fun TafakkurTheme(
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
+
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
             (view.context as Activity).window.statusBarColor = colorScheme.primary.toArgb()
             (view.context as Activity).window.navigationBarColor = colorScheme.primary.toArgb()
-           // (view.context as Activity).window
         }
     }
 

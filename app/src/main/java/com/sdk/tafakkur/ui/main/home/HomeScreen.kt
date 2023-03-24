@@ -23,14 +23,6 @@ fun HomeScreen(navHostController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                Brush.linearGradient(
-                    listOf(
-                        Color.LightGray.copy(alpha = .35f),
-                        LightBlue,
-                    )
-                )
-            )
             .padding(8.dp)
     ) {
         SmallTopAppBar(
@@ -47,5 +39,10 @@ fun HomeScreen(navHostController: NavHostController) {
                 }
             }
         )
+        ElevatedButton(onClick = {
+            navHostController.navigate(Graph.GAME)
+        }) {
+            Text(text = "Boslash")
+        }
     }
 }
