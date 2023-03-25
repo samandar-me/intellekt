@@ -10,17 +10,20 @@ import com.sdk.tafakkur.ui.account.ProfileScreen
 import com.sdk.tafakkur.ui.auth.login.LoginScreen
 import com.sdk.tafakkur.ui.auth.register.RegisterScreen
 import com.sdk.tafakkur.ui.game.GameScreen
+import com.sdk.tafakkur.ui.main.SplashScreen
 import com.sdk.tafakkur.ui.main.home.HomeScreen
 import com.sdk.tafakkur.ui.main.settings.SettingsScreen
 import com.sdk.tafakkur.ui.main.stats.StatsScreen
 import com.sdk.tafakkur.util.Graph
 
-fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
+fun NavGraphBuilder.splashNavGraph(navController: NavHostController) {
     navigation(
-        route = Graph.AUTH,
-        startDestination = "login"
+        route = Graph.SPLASH,
+        startDestination = "splash"
     ) {
-
+        composable("splash") {
+            SplashScreen(navHostController = navController)
+        }
         composable("login") {
             LoginScreen(navController = navController)
         }
@@ -30,6 +33,19 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
     }
 }
 
+fun NavGraphBuilder.authNavGraph(navHostController: NavHostController) {
+    navigation(
+        route = Graph.AUTH,
+        startDestination = "login"
+    ) {
+        composable("login") {
+            LoginScreen(navController = navHostController)
+        }
+        composable("register") {
+            RegisterScreen(navController = navHostController)
+        }
+    }
+}
 @Composable
 fun MainNavGraph(navController: NavHostController) {
     NavHost(

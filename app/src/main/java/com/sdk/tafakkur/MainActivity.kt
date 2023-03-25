@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.collectAsState
+import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
 import com.sdk.data.manager.DataStoreManager
 import com.sdk.tafakkur.ui.navigation.RootNavigation
@@ -22,8 +23,7 @@ class MainActivity : ComponentActivity() {
             val isAuthed = dataStoreManager.getAuthState().collectAsState(initial = true)
             TafakkurTheme {
                 RootNavigation(
-                    navHostController = rememberNavController(),
-                    isAuthed = false
+                    navHostController = rememberNavController()
                 )
             }
         }
