@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -17,6 +18,7 @@ fun GameScreen(navHostController: NavHostController) {
         modifier = Modifier.fillMaxSize(),
         topBar = {
             SmallTopAppBar(
+                colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Transparent),
                 title = {
 
                 },

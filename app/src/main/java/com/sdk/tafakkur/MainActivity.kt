@@ -4,24 +4,26 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.runtime.collectAsState
-import androidx.core.view.WindowCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
-import com.sdk.data.manager.DataStoreManager
 import com.sdk.tafakkur.ui.navigation.RootNavigation
 import com.sdk.tafakkur.ui.theme.TafakkurTheme
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @Inject
-    lateinit var dataStoreManager: DataStoreManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        lifecycleScope.launch {
+            delay(1000L)
+            window.setBackgroundDrawableResource(android.R.color.transparent)
+        }
         setContent {
-            val isAuthed = dataStoreManager.getAuthState().collectAsState(initial = true)
-            TafakkurTheme {
+            TafakkurTheme(
+                darkTheme = isSystemInDarkTheme()
+            ) {
                 RootNavigation(
                     navHostController = rememberNavController()
                 )
