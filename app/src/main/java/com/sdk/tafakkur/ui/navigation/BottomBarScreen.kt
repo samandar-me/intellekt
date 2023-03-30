@@ -9,9 +9,9 @@ sealed class BottomBarScreen(
     @DrawableRes val icon: Int
 ) {
     object HomeScreen: BottomBarScreen(
-        label = "O'yin",
+        label = "Asosiy",
         route = "home",
-        icon = R.drawable.ic_game
+        icon = R.drawable.house
     )
     object Statistics: BottomBarScreen(
         label = "Reyting",

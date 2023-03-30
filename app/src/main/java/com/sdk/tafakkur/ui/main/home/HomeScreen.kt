@@ -42,7 +42,7 @@ fun HomeScreen(navHostController: NavHostController) {
         ElevatedButton(onClick = {
             navHostController.navigate(Graph.GAME)
         }) {
-            Text(text = "Boslash")
+            Text(text = "Boshlash")
         }
     }
 }
