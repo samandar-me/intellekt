@@ -4,6 +4,8 @@ import androidx.compose.ui.graphics.Color
 
 val Blue = Color(0xFF6C63FF)
 val Dark = Color(0xFF242B2E)
+val CardBlue = Color(0xFF5DA3FA)
+val CardLight = Color(0xFFCAD5E2)
 val LightBlue = Color(0xFFADCDF5)
 val DarkBlue = Color(0xFF120E43)
 val DarkRed = Color(0xFFB4161B)

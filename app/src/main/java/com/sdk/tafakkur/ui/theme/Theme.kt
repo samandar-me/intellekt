@@ -14,12 +14,14 @@ import androidx.compose.ui.platform.LocalView
 private val DarkColorScheme = darkColorScheme(
     primary = Dark,
     secondary = Dark,
+    onTertiaryContainer = CardBlue
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Blue,
     secondary = DarkBlue,
-    background = Color(0xFFE4EDF8)
+    background = Color(0xFFE4EDF8),
+    onTertiaryContainer = CardLight
 )
 
 @Composable

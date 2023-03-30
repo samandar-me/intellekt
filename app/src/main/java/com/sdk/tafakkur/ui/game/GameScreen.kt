@@ -53,8 +53,9 @@ fun GameScreen(navHostController: NavHostController) {
                     .fillMaxWidth()
                     .padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 15.dp)
                     .weight(1f),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onTertiaryContainer),
                 shape = RoundedCornerShape(8.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
                 Box(
                     modifier = Modifier
@@ -62,7 +63,7 @@ fun GameScreen(navHostController: NavHostController) {
                         .padding(5.dp), contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Payg'ambarimiz solloluhu alayhi vasallam qachon tavallud topganlar?",
+                        text = "Payg'ambarimiz sollollohu alayhi vasallam qachon tavallud topganlar?",
                         fontFamily = RobotBold,
                         fontSize = 16.sp,
                         textAlign = TextAlign.Center
@@ -77,7 +78,11 @@ fun GameScreen(navHostController: NavHostController) {
                 verticalArrangement = Arrangement.spacedBy(15.dp)
             ) {
                 items(4) {
-                    OptionItem(onClick = { /*TODO*/ }, text = "$it test")
+                    OptionItem(
+                        onClick = { /*TODO*/ },
+                        text = "$it test",
+                        modifier = Modifier.background(Color.Red)
+                    )
                 }
             }
         }
