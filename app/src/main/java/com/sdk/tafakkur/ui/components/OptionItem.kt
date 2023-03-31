@@ -20,7 +20,8 @@ import com.sdk.tafakkur.ui.theme.Blue
 fun OptionItem(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    text: String
+    text: String,
+    isEnabled: Boolean
 ) {
     Box(
         modifier = modifier
@@ -28,7 +29,7 @@ fun OptionItem(
             .height(55.dp)
             .border(1.dp, Blue,RoundedCornerShape(5.dp))
             .background(MaterialTheme.colorScheme.surfaceVariant)
-            .clickable { onClick() },
+            .clickable(enabled = isEnabled) { onClick() },
         contentAlignment = Alignment.Center
     ) {
         Text(text = text, textAlign = TextAlign.Center)
