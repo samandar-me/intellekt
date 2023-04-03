@@ -6,6 +6,6 @@ data class Question(
     val opt2: String = "",
     val opt3: String = "",
     val opt4: String = "",
-    val correctAns: String = "",
+    val correct: String = "",
     val id: Int = 0
 )

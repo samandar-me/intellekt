@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycleScope.launch {
-            delay(1000L)
+            delay(2000L)
             window.setBackgroundDrawableResource(android.R.color.transparent)
         }
         setContent {

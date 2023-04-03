@@ -15,7 +15,7 @@ fun SplashScreen(
     val viewModel: SettingsViewModel = hiltViewModel()
     val isAuthed by viewModel.isAuthed.collectAsState()
     LaunchedEffect(key1 = true) {
-        delay(100L)
+        delay(200L)
         navHostController.navigate(if (isAuthed) Graph.MAIN else "login") {
             popUpTo(Graph.SPLASH) {
                 inclusive = true

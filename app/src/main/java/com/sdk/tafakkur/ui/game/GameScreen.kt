@@ -20,6 +20,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.sdk.tafakkur.ui.components.OptionItem
+import com.sdk.tafakkur.ui.theme.Correct
+import com.sdk.tafakkur.ui.theme.InCorrect
 import com.sdk.tafakkur.ui.theme.RobotBold
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -85,7 +87,8 @@ fun GameScreen(navHostController: NavHostController) {
                     OptionItem(
                         onClick = viewModel::loadNextQuestion,
                         text = it,
-                        isEnabled = state.isEnabled
+                        isEnabled = state.isEnabled,
+                        color = if (it == state.correct) Correct else if (!state.isEnabled) null else InCorrect
                     )
                 }
             }

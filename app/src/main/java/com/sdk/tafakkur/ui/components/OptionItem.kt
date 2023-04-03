@@ -12,6 +12,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.sdk.tafakkur.ui.theme.Blue
@@ -20,6 +22,7 @@ import com.sdk.tafakkur.ui.theme.Blue
 fun OptionItem(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
+    color: Color?,
     text: String,
     isEnabled: Boolean
 ) {
@@ -27,8 +30,9 @@ fun OptionItem(
         modifier = modifier
             .fillMaxWidth()
             .height(55.dp)
-            .border(1.dp, Blue,RoundedCornerShape(5.dp))
-            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .background(color ?: MaterialTheme.colorScheme.surfaceVariant)
+            .clip(RoundedCornerShape(5.dp))
+            .border(1.dp, Blue, RoundedCornerShape(5.dp))
             .clickable(enabled = isEnabled) { onClick() },
         contentAlignment = Alignment.Center
     ) {
