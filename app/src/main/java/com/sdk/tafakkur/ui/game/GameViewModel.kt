@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.sdk.domain.model.Question
 import com.sdk.domain.use_case.base.UseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -13,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GameViewModel @Inject constructor(
-    private val useCases: UseCases
+    private val useCases: UseCases,
 ) : ViewModel() {
     private val _gameState: MutableStateFlow<GameState> = MutableStateFlow(GameState())
     val gameState: StateFlow<GameState> get() = _gameState
@@ -42,30 +43,34 @@ class GameViewModel @Inject constructor(
                             question.opt3,
                             question.opt4
                         ),
-                        correct = question.correct
+                        correct = question.correct,
                     )
                     questionList.addAll(it)
                 }
         }
     }
 
-    fun loadNextQuestion() {
-        viewModelScope.launch {
-            if (currentIndex <= questionList.lastIndex) {
-                val question = questionList[currentIndex]
-                _gameState.update {
-                    GameState(
-                        isEnabled = false,
-                        currentQuestionNumber = currentIndex + 1,
-                        currentQuestion = question.question,
-                        options = listOf(question.opt1, question.opt2, question.opt3, question.opt3),
-                        correct = question.correct,
-                        score = _gameState.value.score
-                    )
-                }
-                delay(2000L)
-                _gameState.value = _gameState.value.copy(isEnabled = true)
-                //currentIndex++
+    fun loadNextQuestion() = viewModelScope.launch(Dispatchers.IO) {
+        if (currentIndex <= questionList.lastIndex) {
+            Log.d("@@@", "loadNextQuestion: work")
+            val question = questionList[currentIndex]
+            _gameState.value = _gameState.value.copy(isEnabled = false)
+            delay(2000L)
+            currentIndex++
+            _gameState.update {
+                GameState(
+                    isEnabled = true,
+                    currentQuestionNumber = currentIndex,
+                    currentQuestion = question.question,
+                    options = listOf(
+                        question.opt1,
+                        question.opt2,
+                        question.opt3,
+                        question.opt3
+                    ),
+                    correct = question.correct,
+                    score = _gameState.value.score
+                )
             }
         }
     }

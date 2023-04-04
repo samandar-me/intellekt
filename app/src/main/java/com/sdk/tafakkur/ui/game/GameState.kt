@@ -1,7 +1,7 @@
 package com.sdk.tafakkur.ui.game
 
 data class GameState(
-    val currentQuestionNumber: Int = 0,
+    val currentQuestionNumber: Int = 1,
     val currentQuestion: String = "",
     val options: List<String> = emptyList(),
     val correct: String = "",

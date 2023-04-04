@@ -22,17 +22,17 @@ import com.sdk.tafakkur.ui.theme.Blue
 fun OptionItem(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    color: Color?,
+    color: Color,
     text: String,
-    isEnabled: Boolean
+    isEnabled: Boolean,
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
             .height(55.dp)
-            .background(color ?: MaterialTheme.colorScheme.surfaceVariant)
             .clip(RoundedCornerShape(5.dp))
             .border(1.dp, Blue, RoundedCornerShape(5.dp))
+            .background(color)
             .clickable(enabled = isEnabled) { onClick() },
         contentAlignment = Alignment.Center
     ) {

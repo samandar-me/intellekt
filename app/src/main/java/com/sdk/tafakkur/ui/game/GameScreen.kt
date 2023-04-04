@@ -11,6 +11,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,27 +30,23 @@ import com.sdk.tafakkur.ui.theme.RobotBold
 fun GameScreen(navHostController: NavHostController) {
     val viewModel: GameViewModel = hiltViewModel()
     val state by viewModel.gameState.collectAsState()
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = {
-            CenterAlignedTopAppBar(
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = Color.Transparent),
-                title = {
-                    Text(text = state.currentQuestionNumber.toString())
-                },
-                navigationIcon = {
-                    IconButton(
-                        onClick = { navHostController.popBackStack() }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.KeyboardArrowLeft,
-                            contentDescription = "back"
-                        )
-                    }
+    val scope = rememberCoroutineScope()
+    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
+        CenterAlignedTopAppBar(colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = Color.Transparent
+        ),
+            title = {
+                Text(text = state.currentQuestionNumber.toString())
+            },
+            navigationIcon = {
+                IconButton(onClick = { navHostController.popBackStack() }) {
+                    Icon(
+                        imageVector = Icons.Default.KeyboardArrowLeft,
+                        contentDescription = "back"
+                    )
                 }
-            )
-        }
-    ) { paddingValues ->
+            })
+    }) { paddingValues ->
         Column(
             modifier = Modifier.padding(paddingValues),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -66,7 +63,8 @@ fun GameScreen(navHostController: NavHostController) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(5.dp), contentAlignment = Alignment.Center
+                        .padding(5.dp),
+                    contentAlignment = Alignment.Center
                 ) {
                     Text(
                         text = state.currentQuestion,
@@ -84,12 +82,28 @@ fun GameScreen(navHostController: NavHostController) {
                 verticalArrangement = Arrangement.spacedBy(15.dp)
             ) {
                 items(state.options) {
-                    OptionItem(
-                        onClick = viewModel::loadNextQuestion,
-                        text = it,
-                        isEnabled = state.isEnabled,
-                        color = if (it == state.correct) Correct else if (!state.isEnabled) null else InCorrect
-                    )
+                    if (!state.isEnabled) {
+                        if (state.correct == it)
+                            OptionItem(
+                            onClick = viewModel::loadNextQuestion,
+                            text = it,
+                            isEnabled = false,
+                            color = Correct
+                        )
+                        else
+                            OptionItem(
+                                onClick = viewModel::loadNextQuestion,
+                                text = it,
+                                isEnabled = false,
+                                color = InCorrect
+                            )
+                    } else
+                        OptionItem(
+                            onClick = viewModel::loadNextQuestion,
+                            text = it,
+                            isEnabled = true,
+                            color = MaterialTheme.colorScheme.surfaceVariant
+                        )
                 }
             }
         }
